@@ -1,0 +1,7 @@
+{
+    "name" : "tempRuleMax",
+    "condition" : "$state.temperature > 100",
+    "notificationStrategy": {
+        "when": "every-time"
+    }
+}

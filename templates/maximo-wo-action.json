@@ -1,0 +1,20 @@
+{
+    "name" : "Create Maximo Work Order",
+    "description" : "An example webhook action",
+    "type": "webhook",
+    "enabled": true,
+    "configuration": {
+        "targetUrl": "{{MAXIMO_URL}}/maxrest/rest/mbo/workorder",
+        "method": "POST",
+        "contentType": "application/json",
+        "username": "{{MAXIMO_USERNAME}}",
+        "password": "{{MAXIMO_PASSWORD}}",
+        "headers": [
+            {
+              "name" : "Content-Type",
+              "value": "application/json"
+            }
+        ],
+        "body" : "{\"description\" : \"Work Order Requested\", \"assetnum\": \"{{ASSET_NUM}}\"}"
+    }
+}
