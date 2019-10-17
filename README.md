@@ -26,10 +26,11 @@ For example, if an asset malfunctions, we can simultaneously trigger responses i
 4. As sensor data is received by IoTP, it'll be compared again the rules to see if any conditionals are met. If one or more conditions are met, the corresponding actions should then be executed
 
 # Steps
-1. [Deploy Cloud Services](#1-deploy-cloud-services)
-2. [Build and Deploy OSLC server for Watson IoTP](#2-build-and-deploy-iotp-adaptor)
-3. [Register Assets in IoTP and Maximo](#3-register-assets-in-iotp-and-maximo)
-4. [Create embedded rules in IoTP](#4-create-embedded-rules-in-iotp)
+1. [Provision Maximo EAM](#1-Provision-Maximo-EAM-Instance)
+2. [Deploy Cloud Services](#2-deploy-cloud-services)
+3. [Build and Deploy OSLC server for Watson IoTP](#3-build-and-deploy-iotp-adaptor)
+4. [Register Assets in IoTP and Maximo](#4-register-assets-in-iotp-and-maximo)
+5. [Create embedded rules in IoTP](#5-create-embedded-rules-in-iotp)
 
 
 ## Install Prerequisites:
@@ -62,12 +63,15 @@ curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.
 ```
 
 
-### 1. Deploy Cloud Services
-Create the following services
-* [Maximo](https://www.ibm.com/products/maximo)
+### 1. Provision Maximo EAM Instance
+To begin, we'll need to provision an instance of Maximo's Enterprise Asset Management system. This system will keep track of higher level assets, such as buildings, vehicles, etc, and allow us to submit work orders when an issue is detected. To provision a free trial version of Maximo, please submit a form at this [link](https://www.ibm.com/account/reg/signup?formid=urx-20869). If you find this pattern useful, you can upgrade to one of the managed Maximo EAM offerings [here](https://www.ibm.com/products/maximo/get-started).
+
+
+### 2. Deploy Cloud Services
+Provision the following services in your IBM Cloud console
 * [Watson IoT Platform](https://cloud.ibm.com/catalog/services/internet-of-things-platform)
 
-### 2. Build and Deploy IoTP adaptor
+### 3. Build and Deploy IoTP adaptor
 Next, we'll continue on by installing an adaptor that'll allow us to make OSLC calls against the Watson IoT Platform. This will enable us to carry out CRUD operations, make selective queries, service discovery, and [more](https://github.com/OSLC/iotp-adaptor#synopsis).
 
 Begin by downloading apache tomcat, which will serve the adaptor endpoints
@@ -112,7 +116,7 @@ We should now be able to access the iotp-adaptor server at [http://localhost:808
 
 <img src="https://i.imgur.com/V90ycTL.png">
 
-### 3. Register Assets in IoTP and Maximo
+### 4. Register Assets in IoTP and Maximo
 After ensuring that our OSLC adaptor is up and running, we can continue by registering assets in Maximo and IoTP.
 
 We'll do this by running the `registerAssets.py` script
@@ -156,7 +160,7 @@ And we can confirm our asset has been created in Maximo and Watson IoTP in their
 
 
 
-### 4. Create embedded rules in IoTP
+### 5. Create embedded rules in IoTP
 Now that we have our assets registered we'll next create some embedded rules/actions in the Watson IoT Platform. These will allow actions to automatically be executed in response to incoming data. For example, if we wanted to run some code when IoTP detects high temperature, we can set up a rule with a condition like so.
 ```
 ruleCondition: "$state.temperature > 100"
