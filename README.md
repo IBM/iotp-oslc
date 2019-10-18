@@ -17,7 +17,7 @@ For example, if an asset malfunctions, we can simultaneously trigger responses i
 * [Watson IoT Platform](https://cloud.ibm.com/catalog/services/internet-of-things-platform)
 
 ## Application Workflow Diagram
-<img src="https://i.imgur.com/obR4LJG.png">
+<img src="https://i.imgur.com/FIn9NZQ.png">
 
 ## Flow
 1. Build and deploy OSLC wrapper for Watson IoTP
