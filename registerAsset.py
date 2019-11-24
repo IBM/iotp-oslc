@@ -13,7 +13,7 @@ print("Please select device")
 count = 0
 print("0: N/A")
 
-if (! devices):
+if not devices:
     print("No devices found, please enter device type")
     device_type = input()
 else:
@@ -41,16 +41,16 @@ else:
     print("Registering device with id - " + selection)
 
 print("Registering device in Watson IoTP via OSLC APIs")
-iotp_url = os.get_env('iotp_oslc_url') || "127.0.0.1"
+iotp_url = os.get_env('iotp_oslc_url') or "127.0.0.1"
 iotp_org = os.get_env('iotp_org')
 endpoint = "/iotp/services/iotp" + iotp_org
 
 # See if device type is already registered
-check_device_type = requests.get( iotp_url + endpoint + "/devicetype/" + devicetype )
+check_device_type = requests.get( iotp_url + endpoint + "/devicetype/" + device_type )
 if ( check_device_type.status == 200):
     # if get request is not 200, device type doesn't exist, so create it here
-    create_device_type = requests.post( iotp_url + endpoint + "/devicetype/" + devicetype )
-    print("Device Type " + devicetype + " created" )
+    create_device_type = requests.post( iotp_url + endpoint + "/devicetype/" + device_type )
+    print("Device Type " + device_type + " created" )
 create_device = requests.post( iotp_url + endpoint + "/device/" + device_id )
 # requests.post(iotp_url, headers)
 print("IoTP Device Registered")
